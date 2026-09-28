@@ -1,0 +1,43 @@
+:root {
+  /* Taken from the shop itself: slate panelled walls, cognac leather, whisky light. */
+  --ink: #111519;
+  --ink-2: #1b2127;
+  --slate: #56626b;
+  --plaster: #eceeed;
+  --paper: #f9f9f7;
+  --text: #171b1f;
+  --muted: #5d666d;
+  --line: #d9dddc;
+  --cognac: #97502b;
+  --whisky: #d6a060;
+  --on-dark: #f1eee9;
+  --on-dark-muted: rgba(241, 238, 233, 0.66);
+  --on-dark-line: rgba(241, 238, 233, 0.12);
+
+  --serif: 'Bodoni Moda', 'Didot', Georgia, serif;
+  --sans: 'Hanken Grotesk', system-ui, sans-serif;
+  --radius: 10px;
+  --header-h: 88px;
+
+  font-family: var(--sans);
+  color: var(--text);
+  background: var(--paper);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }
+body { margin: 0; min-width: 320px; background: var(--paper); }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+button { font: inherit; color: inherit; }
+h1, h2, h3, p, figure, blockquote, dl, dd, ol, ul { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+:focus-visible { outline: 2px solid var(--whisky); outline-offset: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; }
+}
