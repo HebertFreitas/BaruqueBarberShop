@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react'
-import { contact, hours, nav } from '../data/content'
+import { brand, contact, copy, hours, nav } from '../config/site'
 import { motionTokens, springs } from '../lib/motion-tokens'
 import { IconChevronUp, IconClock, IconInstagram, IconPhone, IconPin, IconWhatsApp } from './Icons'
 import { StoreButtons } from './ui'
@@ -9,7 +9,7 @@ export function Footer() {
   return (
     <footer className="footer">
       <div className="container">
-        <p className="footer__tagline">Vem pra Baruque</p>
+        <p className="footer__tagline">{brand.tagline}</p>
         <div className="footer__grid">
           <div>
             <h3>Redes sociais</h3>
@@ -31,10 +31,10 @@ export function Footer() {
           </div>
         </div>
         <div className="footer__apps">
-          <p>Baixe o app e agende pelo celular</p>
+          <p>{copy.app.footerText}</p>
           <StoreButtons tone="light" />
         </div>
-        <p className="footer__legal">© {new Date().getFullYear()} Barbearia Baruque. Todos os direitos reservados.</p>
+        <p className="footer__legal">© {new Date().getFullYear()} {brand.fullName}. Todos os direitos reservados.</p>
       </div>
     </footer>
   )
@@ -71,7 +71,7 @@ export function FloatingActions() {
         href={contact.whatsapp}
         target="_blank"
         rel="noreferrer"
-        aria-label="Falar com a Baruque no WhatsApp"
+        aria-label={`Falar com a ${brand.name} no WhatsApp`}
         initial={{ opacity: 0, scale: 0.6 }}
         animate={{ opacity: 1, scale: 1 }}
         whileHover={{ scale: motionTokens.scale.pop * 1.03 }}

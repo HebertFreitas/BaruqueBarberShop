@@ -1,7 +1,7 @@
 import { motion } from 'motion/react'
 import { fadeUp, inViewOnce, motionTokens, springs } from '../lib/motion-tokens'
 import { useLightbox } from '../lib/overlays'
-import { apps } from '../data/content'
+import { apps } from '../config/site'
 import { IconApple, IconArrowRight, IconExpand, IconGooglePlay } from './Icons'
 
 const fill = {

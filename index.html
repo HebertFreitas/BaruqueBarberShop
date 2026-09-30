@@ -3,18 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="/baruque-logo-official.png" />
-    <meta name="theme-color" content="#111519" />
-    <title>Barbearia Baruque | Barbearia em Contagem, MG</title>
-    <meta name="description" content="Barbearia Baruque: corte, barba e um ambiente para desacelerar em Contagem, MG. Agende pelo app para Android e iPhone." />
-    <meta property="og:title" content="Barbearia Baruque | Contagem, MG" />
-    <meta property="og:description" content="Corte preciso, barba bem feita e aquele ambiente que faz você voltar. Agende pelo app." />
-    <meta property="og:image" content="/gallery/baruque-03.jpeg" />
+    <!-- Values come from src/config/site.js (see vite.config.js). -->
+    <link rel="icon" type="image/png" href="%SITE_LOGO%" />
+    <meta name="theme-color" content="%SITE_THEME_COLOR%" />
+    <title>%SITE_TITLE%</title>
+    <meta name="description" content="%SITE_DESCRIPTION%" />
+    <meta property="og:title" content="%SITE_OG_TITLE%" />
+    <meta property="og:description" content="%SITE_OG_DESCRIPTION%" />
+    <meta property="og:image" content="%SITE_OG_IMAGE%" />
     <meta property="og:locale" content="pt_BR" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" />
-    <link rel="preload" as="image" href="/gallery/baruque-03.jpeg" />
+    <link rel="stylesheet" href="%SITE_FONTS_URL%" />
+    <link rel="preload" as="image" href="%SITE_OG_IMAGE%" />
   </head>
   <body>
     <div id="root"></div>

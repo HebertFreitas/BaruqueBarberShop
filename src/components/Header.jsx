@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react'
-import { nav } from '../data/content'
+import { brand, copy, nav } from '../config/site'
 import { motionTokens, springs, staggerContainer } from '../lib/motion-tokens'
 import { useAppModal } from '../lib/overlays'
 
@@ -44,9 +44,9 @@ export function Header() {
         transition={{ duration: motionTokens.duration.slow, ease: motionTokens.easing.smooth, delay: 0.2 }}
       >
         <div className="container header__inner">
-          <a className="brand" href="#inicio" aria-label="Barbearia Baruque, voltar ao início" onClick={() => setMenuOpen(false)}>
-            <img src="/baruque-logo-official.png" alt="" width="44" height="44" />
-            <span className="brand__word">Baruque<small>Barbearia</small></span>
+          <a className="brand" href="#inicio" aria-label={`${brand.fullName}, voltar ao início`} onClick={() => setMenuOpen(false)}>
+            <img src={brand.logo} alt="" width="44" height="44" />
+            <span className="brand__word">{brand.name}<small>{brand.kind}</small></span>
           </a>
 
           <nav className="header__nav" aria-label="Navegação principal">
@@ -60,7 +60,7 @@ export function Header() {
 
           <div className="header__actions">
             <motion.button className="header__cta" type="button" onClick={openApp} whileHover={{ scale: motionTokens.scale.pop }} whileTap={{ scale: motionTokens.scale.press }} transition={springs.snappy}>
-              Agendar horário
+              {copy.cta}
             </motion.button>
             <button className={`burger ${menuOpen ? 'is-open' : ''}`} type="button" aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'} aria-expanded={menuOpen} aria-controls="mobile-menu" onClick={() => setMenuOpen((o) => !o)}>
               <span /><span />
@@ -84,7 +84,7 @@ export function Header() {
                 </motion.a>
               ))}
               <motion.div variants={{ hidden: { opacity: 0 }, visible: { opacity: 1 } }}>
-                <button className="header__cta header__cta--block" type="button" onClick={() => { setMenuOpen(false); openApp() }}>Agendar horário</button>
+                <button className="header__cta header__cta--block" type="button" onClick={() => { setMenuOpen(false); openApp() }}>{copy.cta}</button>
               </motion.div>
             </motion.nav>
           </motion.div>

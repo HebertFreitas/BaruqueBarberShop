@@ -1,0 +1,38 @@
+/*
+ * THEME: the only CSS file you need to change for a new landing page.
+ * Layout, effects and animations read these tokens; nothing else holds a color or font.
+ * Each color that is used with transparency has a matching *-rgb value ("R G B", no commas).
+ * Fonts are loaded in site.js (fontsUrl); keep the names below in sync with that URL.
+ */
+:root {
+  /* Dark surfaces: header, hero shade, app section, footer, overlays. */
+  --dark: #111519;
+  --dark-rgb: 17 21 25;
+  --dark-2: #1b2127;
+
+  /* Light surfaces. */
+  --base: #f9f9f7;      /* main page background */
+  --surface: #eceeed;   /* alternating sections, icon boxes */
+  --line: #d9dddc;
+
+  /* Text. */
+  --text: #171b1f;
+  --muted: #5d666d;
+  --neutral: #56626b;   /* icons and small neutral details */
+  --neutral-rgb: 86 98 107;
+  --on-dark: #f1eee9;
+  --on-dark-rgb: 241 238 233;
+  --on-dark-muted: rgb(var(--on-dark-rgb) / 0.66);
+  --on-dark-line: rgb(var(--on-dark-rgb) / 0.12);
+
+  /* Brand accents: --accent on light backgrounds, --accent-light on dark ones. */
+  --accent: #97502b;
+  --accent-rgb: 151 80 43;
+  --accent-light: #d6a060;
+  --accent-light-rgb: 214 160 96;
+
+  /* Type and shape. */
+  --font-display: 'Bodoni Moda', 'Didot', Georgia, serif;
+  --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+  --radius: 10px;
+}

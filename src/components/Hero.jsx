@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
-import { heroSlides } from '../data/content'
+import { copy, heroSlides } from '../config/site'
 import { motionTokens, staggerContainer } from '../lib/motion-tokens'
 import { useAppModal } from '../lib/overlays'
 import { PillButton } from './ui'
@@ -46,9 +46,9 @@ export function Hero() {
         <motion.div variants={staggerContainer(motionTokens.stagger.loose, 0.35)} initial="hidden" animate="visible">
           <motion.span className="hero__rule" aria-hidden="true" variants={{ hidden: { scaleX: 0 }, visible: { scaleX: 1, transition: { duration: motionTokens.duration.slow, ease: motionTokens.easing.smooth } } }} />
           <h1>
-            <span className="hero__line"><motion.span variants={line}>Seu estilo.</motion.span></span>
+            <span className="hero__line"><motion.span variants={line}>{copy.hero.line1}</motion.span></span>
             <span className="hero__line hero__line--em">
-              <motion.em variants={line}>Sua assinatura.</motion.em>
+              <motion.em variants={line}>{copy.hero.line2}</motion.em>
               <svg className="hero__swash" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true">
                 <motion.path
                   d="M2 9 C 60 3, 120 12, 180 7 S 270 4, 298 8"
@@ -58,16 +58,16 @@ export function Hero() {
             </span>
           </h1>
           <motion.p className="hero__text" variants={line}>
-            Corte preciso, barba bem feita e aquele ambiente que faz você voltar. A Baruque cuida de cada detalhe para você sair na sua melhor versão.
+            {copy.hero.text}
           </motion.p>
           <motion.div className="hero__actions" variants={line}>
-            <PillButton onClick={openApp} tone="light">Agendar horário</PillButton>
-            <a className="hero__link" href="#experiencia">Conheça a Baruque</a>
+            <PillButton onClick={openApp} tone="light">{copy.cta}</PillButton>
+            <a className="hero__link" href="#experiencia">{copy.hero.link}</a>
           </motion.div>
         </motion.div>
       </motion.div>
 
-      <div className="hero__dots" role="tablist" aria-label="Fotos do ambiente">
+      <div className="hero__dots" role="tablist" aria-label={copy.hero.slidesLabel}>
         {heroSlides.map((s, i) => (
           <button key={s.src} type="button" role="tab" aria-selected={i === slide} aria-label={s.alt} onClick={() => setSlide(i)}>
             {i === slide && <motion.span layoutId="hero-dot" className="hero__dot-fill" />}

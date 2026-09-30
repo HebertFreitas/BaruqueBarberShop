@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, animate, motion, useInView, useReducedMotion, useScroll, useTransform } from 'motion/react'
-import { ambient, appPerks, contact, features, hours, prices, process, reviews, stats, team } from '../data/content'
+import { ambient, appPerks, brand, contact, copy, features, hours, prices, process, reviews, stats, team } from '../config/site'
 import { fadeUp, inViewOnce, motionTokens, springs, staggerContainer } from '../lib/motion-tokens'
 import { useAppModal } from '../lib/overlays'
 import { IconCheck, IconChevronLeft, IconChevronRight, IconClock, IconPin, IconStar } from './Icons'
@@ -34,7 +34,7 @@ export function Intro() {
   const progress = useTransform(scrollYProgress, [0, 1], [0, 1])
 
   return (
-    <section className="section section--paper" id="experiencia">
+    <section className="section section--base" id="experiencia">
       <div className="container">
         <motion.dl className="stats" variants={staggerContainer()} initial="hidden" whileInView="visible" viewport={inViewOnce}>
           {stats.map((s) => (
@@ -47,14 +47,14 @@ export function Intro() {
 
         <div className="intro">
           <div>
-            <SectionHeading first="Mais que um corte." second="Um momento seu." />
+            <SectionHeading first={copy.intro.first} second={copy.intro.second} />
             <motion.p className="lead" variants={fadeUp} initial="hidden" whileInView="visible" viewport={inViewOnce}>
-              Na Baruque, cada detalhe importa. Um espaço acolhedor em Contagem para cuidar do visual, desacelerar e sair sentindo que o corte ficou do jeito certo.
+              {copy.intro.text}
             </motion.p>
           </div>
 
           <div className="steps">
-            <p className="steps__label">Como funciona</p>
+            <p className="steps__label">{copy.intro.stepsLabel}</p>
             <ol ref={listRef}>
               <span className="steps__track" aria-hidden="true"><motion.span style={{ scaleY: progress }} /></span>
               {process.map(([title, text], i) => (
@@ -78,9 +78,9 @@ const featurePhotos = features.map((f) => f.photo)
 
 export function Features() {
   return (
-    <section className="section section--plaster section--tight">
+    <section className="section section--surface section--tight">
       <div className="container">
-        <SectionHeading first="O que nos torna" second="diferentes" />
+        <SectionHeading first={copy.features.first} second={copy.features.second} />
         <motion.div className="bento" variants={staggerContainer()} initial="hidden" whileInView="visible" viewport={inViewOnce}>
           {features.map((f, i) => (
             <PhotoTile key={f.title} list={featurePhotos} index={i} group="features" className={`bento__item ${f.size ? `bento__item--${f.size}` : ''}`}>
@@ -93,7 +93,7 @@ export function Features() {
           ))}
         </motion.div>
         <div className="center-action">
-          <PillButton href="#servicos">Ver todos os serviços</PillButton>
+          <PillButton href="#servicos">{copy.features.action}</PillButton>
         </div>
       </div>
     </section>
@@ -102,13 +102,13 @@ export function Features() {
 
 export function Team() {
   return (
-    <section className="section section--paper" id="equipe">
+    <section className="section section--base" id="equipe">
       <div className="container">
-        <SectionHeading label="Nossa equipe" first="Quem cuida de você" align="center" />
+        <SectionHeading label={copy.team.label} first={copy.team.title} align="center" />
         <motion.div className="team" variants={staggerContainer()} initial="hidden" whileInView="visible" viewport={inViewOnce}>
           {team.map((p) => (
             <motion.article key={p.name} className="member" variants={fadeUp}>
-              <div className="member__photo"><img src={p.photo} alt={`Barbeiro trabalhando: ${p.role.toLowerCase()}`} loading="lazy" /></div>
+              <div className="member__photo"><img src={p.photo} alt={`${copy.team.photoAlt}: ${p.role.toLowerCase()}`} loading="lazy" /></div>
               <p className="member__role">{p.role}</p>
               <h3>{p.name}</h3>
               <p>{p.text}</p>
@@ -123,9 +123,9 @@ export function Team() {
 export function Pricing() {
   const openApp = useAppModal()
   return (
-    <section className="section section--plaster section--tight" id="servicos">
+    <section className="section section--surface section--tight" id="servicos">
       <div className="container container--narrow">
-        <SectionHeading first="Valores" align="center" rule={false} />
+        <SectionHeading first={copy.pricing.title} align="center" rule={false} />
         <motion.ul className="prices" variants={staggerContainer(motionTokens.stagger.tight)} initial="hidden" whileInView="visible" viewport={inViewOnce}>
           {prices.map((p) => (
             <motion.li key={p.name} className={p.featured ? 'is-featured' : ''} variants={fadeUp}>
@@ -138,7 +138,7 @@ export function Pricing() {
           ))}
         </motion.ul>
         <div className="center-action">
-          <PillButton onClick={openApp}>Agendar agora</PillButton>
+          <PillButton onClick={openApp}>{copy.ctaShort}</PillButton>
         </div>
       </div>
     </section>
@@ -147,9 +147,9 @@ export function Pricing() {
 
 export function Ambient() {
   return (
-    <section className="section section--paper" id="ambiente">
+    <section className="section section--base" id="ambiente">
       <div className="container">
-        <SectionHeading first="Nosso" second="ambiente" />
+        <SectionHeading first={copy.ambient.first} second={copy.ambient.second} />
         <motion.div className="mosaic" variants={staggerContainer(motionTokens.stagger.tight)} initial="hidden" whileInView="visible" viewport={inViewOnce}>
           {ambient.map((photo, i) => (
             <PhotoTile key={photo.src} list={ambient} index={i} group="ambient" className={`mosaic__item mosaic__item--${i + 1}`}>
@@ -168,9 +168,9 @@ export function Reviews() {
   const review = reviews[index]
 
   return (
-    <section className="section section--plaster" aria-roledescription="carrossel" aria-label="Depoimentos">
+    <section className="section section--surface" aria-roledescription="carrossel" aria-label="Depoimentos">
       <div className="container container--narrow reviews">
-        <SectionHeading label="Depoimentos" first="O que dizem sobre nós" align="center" />
+        <SectionHeading label={copy.reviews.label} first={copy.reviews.title} align="center" />
         <div className="reviews__stars" aria-label="Nota 5 de 5">
           {Array.from({ length: 5 }, (_, i) => <IconStar key={i} width={18} height={18} />)}
         </div>
@@ -191,7 +191,7 @@ export function Reviews() {
               aria-live="polite"
             >
               <blockquote>“{review.text}”</blockquote>
-              <figcaption><strong>{review.name}</strong>{review.when}, no Google</figcaption>
+              <figcaption><strong>{review.name}</strong>{review.when}, {copy.reviews.source}</figcaption>
             </motion.figure>
           </AnimatePresence>
         </div>
@@ -214,15 +214,17 @@ export function Reviews() {
 export function AppSection() {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
-  const phoneY = useTransform(scrollYProgress, [0, 1], [60, -60])
-  const phoneRotate = useTransform(scrollYProgress, [0, 1], [-6, 4])
+  const rearPhoneY = useTransform(scrollYProgress, [0, 1], [motionTokens.distance.lg, -motionTokens.distance.lg])
+  const rearPhoneRotate = useTransform(scrollYProgress, [0, 1], [-7, -2])
+  const frontPhoneY = useTransform(scrollYProgress, [0, 1], [motionTokens.distance.xl, -motionTokens.distance.xl])
+  const frontPhoneRotate = useTransform(scrollYProgress, [0, 1], [4, -2])
 
   return (
-    <section className="section section--ink app" id="app" ref={ref}>
+    <section className="section section--dark app" id="app" ref={ref}>
       <div className="container app__grid">
         <motion.div variants={staggerContainer()} initial="hidden" whileInView="visible" viewport={inViewOnce}>
-          <SectionHeading first="Agende pelo" second="app Baruque" tone="dark" />
-          <motion.p className="lead lead--dark" variants={fadeUp}>Seu próximo horário a poucos toques. O app é gratuito para Android e iPhone.</motion.p>
+          <SectionHeading first={copy.app.first} second={copy.app.second} tone="dark" />
+          <motion.p className="lead lead--dark" variants={fadeUp}>{copy.app.text}</motion.p>
           <motion.ul className="app__perks" variants={staggerContainer()}>
             {appPerks.map((perk) => (
               <motion.li key={perk} variants={fadeUp}><IconCheck width={18} height={18} />{perk}</motion.li>
@@ -231,21 +233,18 @@ export function AppSection() {
           <motion.div variants={fadeUp}><StoreButtons tone="light" /></motion.div>
         </motion.div>
 
-        <motion.div className="phone" style={{ y: phoneY, rotate: phoneRotate }} aria-hidden="true">
-          <div className="phone__screen">
-            <div className="phone__top">
-              <img src="/baruque-logo-official.png" alt="" width="34" height="34" />
-              <span>Olá! Qual serviço hoje?</span>
+        <div className="phones" aria-hidden="true">
+          <motion.div className="phone phone--rear" style={{ y: rearPhoneY, rotate: rearPhoneRotate }}>
+            <div className="phone__screen">
+              <img src={copy.app.screens[0]} alt="" />
             </div>
-            {prices.slice(0, 4).map((p, i) => (
-              <div key={p.name} className={`phone__row ${i === 2 ? 'is-picked' : ''}`}>
-                <span>{p.name}<small>{p.time}</small></span>
-                <b>{p.price}</b>
-              </div>
-            ))}
-            <div className="phone__cta">Escolher horário</div>
-          </div>
-        </motion.div>
+          </motion.div>
+          <motion.div className="phone phone--front" style={{ y: frontPhoneY, rotate: frontPhoneRotate }}>
+            <div className="phone__screen">
+              <img src={copy.app.screens[1]} alt="" />
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   )
@@ -254,17 +253,17 @@ export function AppSection() {
 export function Visit() {
   const openApp = useAppModal()
   return (
-    <section className="section section--paper" id="contato">
+    <section className="section section--base" id="contato">
       <div className="container visit">
         <div className="visit__info">
-          <SectionHeading first="Venha nos" second="visitar" />
+          <SectionHeading first={copy.visit.first} second={copy.visit.second} />
           <motion.div className="visit__details" variants={staggerContainer()} initial="hidden" whileInView="visible" viewport={inViewOnce}>
             <motion.div variants={fadeUp}>
               <span className="icon-box"><IconPin /></span>
               <div>
                 <h3>Endereço</h3>
                 <p>{contact.address.map((l) => <span key={l}>{l}</span>)}</p>
-                <a className="text-link" href={contact.mapsLink} target="_blank" rel="noreferrer">Abrir no Google Maps</a>
+                <a className="text-link" href={contact.mapsLink} target="_blank" rel="noreferrer">{copy.visit.mapsAction}</a>
               </div>
             </motion.div>
             <motion.div variants={fadeUp}>
@@ -275,10 +274,10 @@ export function Visit() {
               </div>
             </motion.div>
           </motion.div>
-          <PillButton onClick={openApp}>Agendar agora</PillButton>
+          <PillButton onClick={openApp}>{copy.ctaShort}</PillButton>
         </div>
         <motion.div className="visit__map" initial={{ opacity: 0, scale: motionTokens.scale.subtle }} whileInView={{ opacity: 1, scale: 1 }} viewport={inViewOnce} transition={{ duration: motionTokens.duration.slow, ease: motionTokens.easing.smooth }}>
-          <iframe title="Mapa com a localização da Barbearia Baruque" src={contact.mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+          <iframe title={`Mapa com a localização da ${brand.fullName}`} src={contact.mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
         </motion.div>
       </div>
     </section>

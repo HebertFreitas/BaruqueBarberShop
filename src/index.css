@@ -1,27 +1,11 @@
-:root {
-  /* Taken from the shop itself: slate panelled walls, cognac leather, whisky light. */
-  --ink: #111519;
-  --ink-2: #1b2127;
-  --slate: #56626b;
-  --plaster: #eceeed;
-  --paper: #f9f9f7;
-  --text: #171b1f;
-  --muted: #5d666d;
-  --line: #d9dddc;
-  --cognac: #97502b;
-  --whisky: #d6a060;
-  --on-dark: #f1eee9;
-  --on-dark-muted: rgba(241, 238, 233, 0.66);
-  --on-dark-line: rgba(241, 238, 233, 0.12);
+@import "./config/theme.css";
 
-  --serif: 'Bodoni Moda', 'Didot', Georgia, serif;
-  --sans: 'Hanken Grotesk', system-ui, sans-serif;
-  --radius: 10px;
+:root {
   --header-h: 88px;
 
-  font-family: var(--sans);
+  font-family: var(--font-body);
   color: var(--text);
-  background: var(--paper);
+  background: var(--base);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -29,13 +13,13 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); }
-body { margin: 0; min-width: 320px; background: var(--paper); }
+body { margin: 0; min-width: 320px; background: var(--base); }
 a { color: inherit; }
 img { display: block; max-width: 100%; }
 button { font: inherit; color: inherit; }
 h1, h2, h3, p, figure, blockquote, dl, dd, ol, ul { margin: 0; }
 ol, ul { padding: 0; list-style: none; }
-:focus-visible { outline: 2px solid var(--whisky); outline-offset: 4px; }
+:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 4px; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

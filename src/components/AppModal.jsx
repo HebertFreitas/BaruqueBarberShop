@@ -4,6 +4,7 @@ import { motionTokens, springs } from '../lib/motion-tokens'
 import { useDialog } from '../lib/overlays'
 import { IconClose, IconDevice } from './Icons'
 import { StoreButtons } from './ui'
+import { copy } from '../config/site'
 
 export function AppModal({ open, onClose }) {
   const ref = useRef(null)
@@ -26,8 +27,8 @@ export function AppModal({ open, onClose }) {
           >
             <button className="modal__close" type="button" onClick={onClose} aria-label="Fechar"><IconClose width={18} height={18} /></button>
             <span className="modal__icon"><IconDevice width={26} height={26} /></span>
-            <h2 id="app-modal-title">Baixe o app Baruque</h2>
-            <p>Agende seu horário com o profissional que preferir e receba lembretes direto no celular.</p>
+            <h2 id="app-modal-title">{copy.app.modalTitle}</h2>
+            <p>{copy.app.modalText}</p>
             <StoreButtons tone="dark" className="stores--stacked" />
           </motion.div>
         </motion.div>

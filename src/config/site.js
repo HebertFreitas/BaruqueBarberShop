@@ -1,3 +1,63 @@
+/*
+ * SITE: everything that changes from one landing page to the next lives here.
+ * Components only read from this file (and theme.css), so screens, actions and
+ * animations stay identical across projects.
+ * Images go in /public: logo, /gallery/*, /app-screens/*.
+ */
+
+export const brand = {
+  name: 'Baruque',
+  kind: 'Barbearia',                 // small word under the logo
+  fullName: 'Barbearia Baruque',
+  logo: '/baruque-logo-official.png',
+  tagline: 'Vem pra Baruque',        // big line at the top of the footer
+}
+
+// Used by vite.config.js to fill index.html (title, meta, fonts, preload).
+export const seo = {
+  title: 'Barbearia Baruque | Barbearia em Contagem, MG',
+  description: 'Barbearia Baruque: corte, barba e um ambiente para desacelerar em Contagem, MG. Agende pelo app para Android e iPhone.',
+  ogTitle: 'Barbearia Baruque | Contagem, MG',
+  ogDescription: 'Corte preciso, barba bem feita e aquele ambiente que faz você voltar. Agende pelo app.',
+  ogImage: '/gallery/baruque-03.jpeg',
+  themeColor: '#111519',             // keep equal to --dark in theme.css
+  fontsUrl: 'https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..600;1,6..96,400..500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap',
+}
+
+// Every piece of copy shown on the page, grouped by section.
+export const copy = {
+  cta: 'Agendar horário',
+  ctaShort: 'Agendar agora',
+  hero: {
+    line1: 'Seu estilo.',
+    line2: 'Sua assinatura.',
+    text: 'Corte preciso, barba bem feita e aquele ambiente que faz você voltar. A Baruque cuida de cada detalhe para você sair na sua melhor versão.',
+    link: 'Conheça a Baruque',
+    slidesLabel: 'Fotos do ambiente',
+  },
+  intro: {
+    first: 'Mais que um corte.',
+    second: 'Um momento seu.',
+    text: 'Na Baruque, cada detalhe importa. Um espaço acolhedor em Contagem para cuidar do visual, desacelerar e sair sentindo que o corte ficou do jeito certo.',
+    stepsLabel: 'Como funciona',
+  },
+  features: { first: 'O que nos torna', second: 'diferentes', action: 'Ver todos os serviços' },
+  team: { label: 'Nossa equipe', title: 'Quem cuida de você', photoAlt: 'Barbeiro trabalhando' },
+  pricing: { title: 'Valores' },
+  ambient: { first: 'Nosso', second: 'ambiente' },
+  reviews: { label: 'Depoimentos', title: 'O que dizem sobre nós', source: 'no Google' },
+  app: {
+    first: 'Agende pelo',
+    second: 'app Baruque',
+    text: 'Seu próximo horário a poucos toques. O app é gratuito para Android e iPhone.',
+    screens: ['/app-screens/baruque-scheduling.png', '/app-screens/baruque-login.png'], // rear, front
+    modalTitle: 'Baixe o app Baruque',
+    modalText: 'Agende seu horário com o profissional que preferir e receba lembretes direto no celular.',
+    footerText: 'Baixe o app e agende pelo celular',
+  },
+  visit: { first: 'Venha nos', second: 'visitar', mapsAction: 'Abrir no Google Maps' },
+}
+
 export const contact = {
   phoneLabel: '(31) 97336-6715',
   phoneHref: 'tel:+5531973366715',
