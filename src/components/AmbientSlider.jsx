@@ -4,7 +4,7 @@ import { ambient } from '../config/site'
 import { motionTokens } from '../lib/motion-tokens'
 import { materialGeometry } from '../lib/material-slider'
 import { useLightbox } from '../lib/overlays'
-import { IconChevronLeft, IconChevronRight, IconExpand, IconPause, IconPlay } from './Icons'
+import { IconExpand, IconPause, IconPlay } from './Icons'
 
 function AmbientSlide({ photo, index, active, geometry, progress, select, open, dragged }) {
   const left = useTransform(geometry, (items) => `${items[index].left}%`)
@@ -129,16 +129,11 @@ export function AmbientSlider() {
         )}
       </motion.div>
       <div className="ambient-slider__controls">
-        <p className="ambient-slider__count" aria-live={playing && !focused ? 'off' : 'polite'} aria-atomic="true">{active + 1} <span>/ {ambient.length}</span></p>
         <div className="ambient-slider__pagination" aria-label="Escolher foto">
           {paginationPhotos.map((photo, offset) => {
             const index = paginationStart + offset
             return <button key={photo.src} type="button" aria-label={`Ver foto ${index + 1}: ${photo.alt}`} aria-current={active === index ? 'true' : undefined} onClick={() => select(index)} />
           })}
-        </div>
-        <div className="ambient-slider__arrows">
-          <button type="button" aria-label="Foto anterior" disabled={active === 0} onClick={() => select(active - 1)}><IconChevronLeft /></button>
-          <button type="button" aria-label="Próxima foto" disabled={active === ambient.length - 1} onClick={() => select(active + 1)}><IconChevronRight /></button>
         </div>
       </div>
     </div>

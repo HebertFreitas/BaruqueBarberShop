@@ -1,7 +1,5 @@
-import { useState } from 'react'
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'motion/react'
+import { motion, useScroll } from 'motion/react'
 import { brand, contact, copy, hours, nav } from '../config/site'
-import { motionTokens, springs } from '../lib/motion-tokens'
 import { IconChevronUp, IconClock, IconInstagram, IconPhone, IconPin, IconWhatsApp } from './Icons'
 import { StoreButtons } from './ui'
 
@@ -34,52 +32,16 @@ export function Footer() {
           <p>{copy.app.footerText}</p>
           <StoreButtons tone="light" />
         </div>
-        <p className="footer__legal">© {new Date().getFullYear()} {brand.fullName}. Todos os direitos reservados.</p>
+        <div className="footer__bottom">
+          <p className="footer__legal">© {new Date().getFullYear()} {brand.fullName}. Todos os direitos reservados.</p>
+          <a className="footer__top" href="#inicio" aria-label="Voltar ao topo"><IconChevronUp /></a>
+        </div>
       </div>
     </footer>
   )
 }
 
-export function FloatingActions() {
-  const { scrollY, scrollYProgress } = useScroll()
-  const [showTop, setShowTop] = useState(false)
-  useMotionValueEvent(scrollY, 'change', (y) => setShowTop(y > 700))
-
-  return (
-    <>
-      <motion.div className="progress" style={{ scaleX: scrollYProgress }} aria-hidden="true" />
-      <AnimatePresence>
-        {showTop && (
-          <motion.button
-            key="to-top"
-            className="fab fab--top"
-            type="button"
-            aria-label="Voltar ao topo"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            initial={{ opacity: 0, scale: motionTokens.scale.press, y: motionTokens.distance.sm }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: motionTokens.scale.press, y: motionTokens.distance.sm }}
-            whileHover={{ y: -3 }}
-            transition={springs.snappy}
-          >
-            <IconChevronUp />
-          </motion.button>
-        )}
-      </AnimatePresence>
-      <motion.a
-        className="fab fab--whatsapp"
-        href={contact.whatsapp}
-        target="_blank"
-        rel="noreferrer"
-        aria-label={`Falar com a ${brand.name} no WhatsApp`}
-        initial={{ opacity: 0, scale: 0.6 }}
-        animate={{ opacity: 1, scale: 1 }}
-        whileHover={{ scale: motionTokens.scale.pop * 1.03 }}
-        whileTap={{ scale: motionTokens.scale.press }}
-        transition={{ ...springs.snappy, delay: 1.2 }}
-      >
-        <IconWhatsApp width={28} height={28} />
-      </motion.a>
-    </>
-  )
+export function ScrollProgress() {
+  const { scrollYProgress } = useScroll()
+  return <motion.div className="progress" style={{ scaleX: scrollYProgress }} aria-hidden="true" />
 }

@@ -5,7 +5,7 @@ import { AppModalContext, LightboxContext } from './lib/overlays'
 import { Header } from './components/Header'
 import { Hero } from './components/Hero'
 import { Ambient, AppSection, Features, Intro, Pricing, Reviews, Team, Visit } from './components/Sections'
-import { FloatingActions, Footer } from './components/Footer'
+import { ScrollProgress, Footer } from './components/Footer'
 import { Lightbox } from './components/Lightbox'
 import { AppModal } from './components/AppModal'
 
@@ -33,7 +33,7 @@ function App() {
             <Visit />
           </main>
           <Footer />
-          <FloatingActions />
+          <ScrollProgress />
           <Lightbox state={lightbox} setState={setLightbox} />
           <AppModal open={appOpen} onClose={closeApp} />
         </LightboxContext.Provider>

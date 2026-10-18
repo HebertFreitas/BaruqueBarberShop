@@ -23,8 +23,9 @@ Cores tiradas da própria casa: paredes grafite com boiserie, couro conhaque, lu
 
 ## Carrossel de diferenciais
 
+- No mobile, cards dimensionados pela altura útil da viewport, com espaçamento compacto para manter título, imagens, indicadores e CTA juntos. Sem descrição externa abaixo das fotos.
 - Oito cards em leque, seguindo as posições, rotações e escalas da referência flick-cards-stack, adaptados ao React e às fontes e cores da Baruque.
-- Primeira troca automática após 1,2 segundo visível; seguintes a cada quatro segundos. Arraste, setas, indicadores e controle de pausa. Foco do teclado, arraste, aba oculta e seção fora da tela suspendem o temporizador; passar o mouse não bloqueia o início automático.
+- Primeira troca automática após 1,2 segundo visível; seguintes a cada quatro segundos. Arraste, teclado, indicadores em traços e controle de pausa sobre a imagem, no mesmo estilo da galeria do ambiente; sem setas ou contador numérico. Foco do teclado, arraste, aba oculta e seção fora da tela suspendem o temporizador; passar o mouse não bloqueia o início automático.
 - Movimento reduzido desativa a troca automática e a animação do leque. As fotos abrem a lightbox com transição independente.
 
 ## Galeria do ambiente
@@ -49,4 +50,8 @@ Cores tiradas da própria casa: paredes grafite com boiserie, couro conhaque, lu
 
 ## Depoimentos
 
-- Depoimentos compartilham a mesma célula de grid, reservando a altura do maior texto conforme a largura e a fonte. Troca por opacidade sem desmontagem, deslocamento horizontal ou mudança de altura da seção; apenas o depoimento ativo fica disponível para leitores de tela. Movimento reduzido torna a troca imediata.
+- Depoimentos compartilham a mesma célula de grid, reservando a altura do maior texto conforme a largura e a fonte. Troca por opacidade sem desmontagem, deslocamento horizontal ou mudança de altura da seção; apenas o depoimento ativo fica disponível para leitores de tela. Movimento reduzido torna a troca imediata. Navegação por gesto horizontal, teclado e indicadores em traços no padrão das galerias, sem setas visíveis. Troca automática a cada sete segundos, com pausa/reprodução ao lado dos indicadores; foco do teclado, gesto em andamento, seção fora da tela e aba oculta suspendem o temporizador; movimento reduzido desativa autoplay. Rolagem vertical e zoom por pinça preservados.
+
+## Navegação ao final da página
+
+- WhatsApp disponível no rodapé, sem botão flutuante. Voltar ao topo aparece apenas ao final do rodapé, como link para o início. Galerias e lightbox não exibem contadores numéricos.

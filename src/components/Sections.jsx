@@ -3,9 +3,9 @@ import { animate, motion, useInView, useReducedMotion, useScroll, useTransform }
 import { appPerks, brand, contact, copy, hours, prices, process, reviews, stats, team } from '../config/site'
 import { AmbientSlider } from './AmbientSlider'
 import { FeatureStack } from './FeatureStack'
-import { fadeUp, inViewOnce, motionTokens, springs, staggerContainer } from '../lib/motion-tokens'
+import { fadeUp, inViewOnce, motionTokens, staggerContainer } from '../lib/motion-tokens'
 import { useAppModal } from '../lib/overlays'
-import { IconCheck, IconChevronLeft, IconChevronRight, IconClock, IconPin, IconStar } from './Icons'
+import { IconCheck, IconClock, IconPause, IconPin, IconPlay, IconStar } from './Icons'
 import { PillButton, SectionHeading, StoreButtons } from './ui'
 
 const numberFormat = (decimals) => new Intl.NumberFormat('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
@@ -147,19 +147,57 @@ export function Ambient() {
 }
 
 export function Reviews() {
+  const ref = useRef(null)
+  const inView = useInView(ref, { amount: 0.3 })
   const [index, setIndex] = useState(0)
+  const [autoplay, setAutoplay] = useState(true)
+  const [focused, setFocused] = useState(false)
+  const [dragging, setDragging] = useState(false)
+  const [visible, setVisible] = useState(() => !document.hidden)
   const reduce = useReducedMotion()
+  const playing = autoplay && !reduce
   const go = (d) => setIndex((i) => (i + d + reviews.length) % reviews.length)
+
+  useEffect(() => {
+    const update = () => setVisible(!document.hidden)
+    document.addEventListener('visibilitychange', update)
+    return () => document.removeEventListener('visibilitychange', update)
+  }, [])
+
+  useEffect(() => {
+    if (!playing || !inView || !visible || focused || dragging) return
+    const timer = setTimeout(() => setIndex((i) => (i + 1) % reviews.length), motionTokens.duration.slide * 1000)
+    return () => clearTimeout(timer)
+  }, [index, playing, inView, visible, focused, dragging])
 
   return (
     <section className="section section--surface" aria-roledescription="carrossel" aria-label="Depoimentos">
-      <div className="container container--narrow reviews">
+      <div className="container container--narrow reviews" ref={ref}
+        onFocusCapture={(event) => setFocused(event.target.matches(':focus-visible'))}
+        onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false) }}
+      >
         <SectionHeading label={copy.reviews.label} first={copy.reviews.title} align="center" />
         <div className="reviews__stars" aria-label="Nota 5 de 5">
           {Array.from({ length: 5 }, (_, i) => <IconStar key={i} width={18} height={18} />)}
         </div>
         {/* Shared grid cell reserves the tallest review at every viewport/font size. */}
-        <div className="reviews__stage" aria-live="polite" aria-atomic="true">
+        <motion.div className="reviews__stage" aria-live={playing && !focused ? 'off' : 'polite'} aria-atomic="true"
+          onPanStart={() => setDragging(true)}
+          onPointerCancel={() => setDragging(false)}
+          onPanEnd={(_, { offset, velocity }) => {
+            setDragging(false)
+            if (Math.abs(offset.x) <= Math.abs(offset.y)) return
+            if (Math.abs(offset.x) > motionTokens.distance.lg || (Math.abs(offset.x) > 8 && Math.abs(velocity.x) > 350)) {
+              go(offset.x < 0 ? 1 : -1)
+            }
+          }}
+          onKeyDown={(event) => {
+            if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+              event.preventDefault()
+              go(event.key === 'ArrowRight' ? 1 : -1)
+            }
+          }}
+        >
           {reviews.map((review, i) => (
             <motion.figure
               key={review.name}
@@ -175,17 +213,25 @@ export function Reviews() {
               <figcaption><strong>{review.name}</strong>{review.when}, {copy.reviews.source}</figcaption>
             </motion.figure>
           ))}
-        </div>
-        <div className="reviews__controls">
-          <motion.button type="button" onClick={() => go(-1)} aria-label="Depoimento anterior" whileTap={{ scale: motionTokens.scale.press }}><IconChevronLeft width={18} height={18} /></motion.button>
-          <div className="reviews__dots">
-            {reviews.map((r, i) => (
-              <button key={r.name} type="button" className={i === index ? 'is-active' : ''} aria-label={`Depoimento ${i + 1} de ${reviews.length}`} aria-current={i === index} onClick={() => setIndex(i)}>
-                {i === index && <motion.span layoutId="review-dot" transition={springs.snappy} />}
-              </button>
-            ))}
-          </div>
-          <motion.button type="button" onClick={() => go(1)} aria-label="Próximo depoimento" whileTap={{ scale: motionTokens.scale.press }}><IconChevronRight width={18} height={18} /></motion.button>
+        </motion.div>
+        <div className="reviews__pagination" aria-label="Escolher depoimento"
+          onKeyDown={(event) => {
+            if (event.key === 'ArrowRight' || event.key === 'ArrowLeft') {
+              event.preventDefault()
+              go(event.key === 'ArrowRight' ? 1 : -1)
+            }
+          }}
+        >
+          {reviews.map((review, i) => (
+            <button key={review.name} type="button" aria-label={`Ver depoimento de ${review.name}`} aria-current={i === index ? 'true' : undefined} onClick={() => setIndex(i)} />
+          ))}
+          {!reduce && (
+            <button className="reviews__playback" type="button"
+              onClick={() => { if (!autoplay) setFocused(false); setAutoplay((value) => !value) }}
+              aria-label={playing ? 'Pausar troca automática de depoimentos' : 'Ativar troca automática de depoimentos'}>
+              {playing ? <IconPause /> : <IconPlay />}
+            </button>
+          )}
         </div>
       </div>
     </section>

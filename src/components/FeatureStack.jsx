@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { AnimatePresence, motion, useInView, useReducedMotion } from 'motion/react'
+import { motion, useInView, useReducedMotion } from 'motion/react'
 import { features } from '../config/site'
 import { featureStackPosition } from '../lib/feature-stack'
 import { motionTokens, springs } from '../lib/motion-tokens'
 import { useLightbox } from '../lib/overlays'
-import { IconChevronLeft, IconChevronRight, IconExpand, IconPause, IconPlay } from './Icons'
+import { IconExpand, IconPause, IconPlay } from './Icons'
 
 const photos = features.map((feature) => feature.photo)
 
@@ -107,21 +107,17 @@ export function FeatureStack() {
             </motion.div>
           )
         })}
+        {!reduce && (
+          <button type="button" className="feature-stack__playback"
+            onClick={() => { if (!autoplay) setFocused(false); setAutoplay((value) => !value) }}
+            aria-label={playing ? 'Pausar carrossel automático' : 'Ativar carrossel automático'}>
+            {playing ? <IconPause /> : <IconPlay />}
+          </button>
+        )}
       </div>
 
-      <div className="feature-stack__description" aria-live={playing && !focused ? 'off' : 'polite'} aria-atomic="true">
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.p key={active} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduce ? 0 : motionTokens.duration.fast }}>{features[active].text}</motion.p>
-        </AnimatePresence>
-      </div>
       <div className="feature-stack__pagination" aria-label="Escolher diferencial">
         {features.map((feature, index) => <button key={feature.title} type="button" aria-label={`Ver ${feature.title}`} aria-current={active === index ? 'true' : undefined} onClick={() => setActive(index)} />)}
-      </div>
-      <div className="feature-stack__controls">
-        <button type="button" onClick={() => go(-1)} aria-label="Diferencial anterior"><IconChevronLeft /></button>
-        <span className="feature-stack__count">{active + 1} <span>/ {features.length}</span></span>
-        <button type="button" onClick={() => go(1)} aria-label="Próximo diferencial"><IconChevronRight /></button>
-        {!reduce && <button type="button" onClick={() => { if (!autoplay) setFocused(false); setAutoplay((value) => !value) }} aria-label={playing ? 'Pausar carrossel automático' : 'Ativar carrossel automático'}>{playing ? <IconPause /> : <IconPlay />}</button>}
       </div>
     </div>
   )

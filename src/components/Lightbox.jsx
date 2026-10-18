@@ -64,7 +64,6 @@ export function Lightbox({ state, setState }) {
             aria-live="polite"
           >
             {state.list[state.index].alt}
-            <span>{state.index + 1} / {state.list.length}</span>
           </motion.p>
         </motion.div>
       )}
