@@ -21,12 +21,28 @@ Cores tiradas da própria casa: paredes grafite com boiserie, couro conhaque, lu
 - `Bodoni Moda` — títulos (segunda linha em itálico), preços, nomes
 - `Hanken Grotesk` — corpo, navegação, botões
 
+## Carrossel de diferenciais
+
+- Oito cards em leque, seguindo as posições, rotações e escalas da referência flick-cards-stack, adaptados ao React e às fontes e cores da Baruque.
+- Primeira troca automática após 1,2 segundo visível; seguintes a cada quatro segundos. Arraste, setas, indicadores e controle de pausa. Foco do teclado, arraste, aba oculta e seção fora da tela suspendem o temporizador; passar o mouse não bloqueia o início automático.
+- Movimento reduzido desativa a troca automática e a animação do leque. As fotos abrem a lightbox com transição independente.
+
+## Galeria do ambiente
+
+- Carrossel inspirado no Material Slider: a foto ativa se expande e as vizinhas ficam recortadas, com cantos arredondados.
+- Arraste horizontal, setas, indicadores e teclado (← / →, Home / End); a foto ativa abre a lightbox.
+- Troca automática a cada quatro segundos, com botão de pausa. Ao chegar à última foto, a sequência percorre as anteriores mantendo a mesma animação. Pausa durante a interação, fora da tela, em aba oculta ou com movimento reduzido.
+- Transição automática de 1,4 segundo, com aceleração e desaceleração graduais; legendas e ícones acompanham a expansão da foto em vez de trocar abruptamente. A navegação manual mantém sua resposta mais rápida.
+- Geometria responsiva em `src/lib/material-slider.js`; movimento controlado pelos tokens existentes e desativado com movimento reduzido.
+
 ## Motion (src/lib/motion-tokens.js)
 
 - Todos os tempos, distâncias e springs vêm de `motionTokens` / `springs`; nada inline.
-- Hero: slideshow com Ken Burns, título linha a linha, sublinhado desenhado (pathLength), parallax no scroll.
+- Hero: vídeo local sem som, em loop e inline no celular, com controle de pausa; foto alternativa para falha ou movimento reduzido. Pausa fora da tela ou em aba oculta. Entrada coordenada com reveal vertical por clip-path, título linha a linha e stagger dos botões; sem parallax. Movimento reduzido exibe o conteúdo imediatamente.
+- Desktop: grid editorial assimétrico alinhado ao header, título Bodoni Moda ampliado e vídeo vertical 9:16 com cantos discretos e sombra suave. Fundo preto/grafite com iluminação ambiente sutil, sem foto desfocada. Vídeo com cores originais, sem filtro; dourado discreto no filete e nas interações. No celular (até 640px), a HERO exibe o vídeo sem texto, CTA ou sombra sobrepostos, com controle de pausa por ícone e nome acessível.
+- No celular, o indicador discreto “Role para conhecer” sinaliza a continuação da página e leva à seção de experiência ao tocar. A seta faz três movimentos suaves e respeita movimento reduzido.
 - Seções: `whileInView` com `viewport={{ once: true }}`; stagger entre 0.06 e 0.10.
-- Fotos: hover com zoom + cor + moldura interna; clique abre lightbox com `layoutId` (a foto cresce do lugar),
+- Fotos: hover com zoom + cor + moldura interna; clique abre lightbox com fade e escala independentes do card,
   setas, teclado (← → Esc), arrastar no celular.
 - Modais (app, lightbox): focus trap, Esc, scroll lock, `role="dialog"`, `aria-modal`.
 - `MotionConfig reducedMotion="user"` respeita `prefers-reduced-motion`.

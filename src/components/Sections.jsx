@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, animate, motion, useInView, useReducedMotion, useScroll, useTransform } from 'motion/react'
-import { ambient, appPerks, brand, contact, copy, features, hours, prices, process, reviews, stats, team } from '../config/site'
+import { appPerks, brand, contact, copy, hours, prices, process, reviews, stats, team } from '../config/site'
+import { AmbientSlider } from './AmbientSlider'
+import { FeatureStack } from './FeatureStack'
 import { fadeUp, inViewOnce, motionTokens, springs, staggerContainer } from '../lib/motion-tokens'
 import { useAppModal } from '../lib/overlays'
 import { IconCheck, IconChevronLeft, IconChevronRight, IconClock, IconPin, IconStar } from './Icons'
-import { PhotoTile, PillButton, SectionHeading, StoreButtons } from './ui'
+import { PillButton, SectionHeading, StoreButtons } from './ui'
 
 const numberFormat = (decimals) => new Intl.NumberFormat('pt-BR', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
 
@@ -74,24 +76,12 @@ export function Intro() {
   )
 }
 
-const featurePhotos = features.map((f) => f.photo)
-
 export function Features() {
   return (
-    <section className="section section--surface section--tight">
+    <section className="section section--surface section--tight section--features" id="diferenciais">
       <div className="container">
-        <SectionHeading first={copy.features.first} second={copy.features.second} />
-        <motion.div className="bento" variants={staggerContainer()} initial="hidden" whileInView="visible" viewport={inViewOnce}>
-          {features.map((f, i) => (
-            <PhotoTile key={f.title} list={featurePhotos} index={i} group="features" className={`bento__item ${f.size ? `bento__item--${f.size}` : ''}`}>
-              <span className="bento__copy">
-                <span className="bento__tag">{f.tag}</span>
-                <span className="bento__title">{f.title}</span>
-                <span className="bento__text">{f.text}</span>
-              </span>
-            </PhotoTile>
-          ))}
-        </motion.div>
+        <SectionHeading first={copy.features.first} second={copy.features.second} align="center" />
+        <FeatureStack />
         <div className="center-action">
           <PillButton href="#servicos">{copy.features.action}</PillButton>
         </div>
@@ -108,10 +98,10 @@ export function Team() {
         <motion.div className="team" variants={staggerContainer()} initial="hidden" whileInView="visible" viewport={inViewOnce}>
           {team.map((p) => (
             <motion.article key={p.name} className="member" variants={fadeUp}>
-              <div className="member__photo"><img src={p.photo} alt={`${copy.team.photoAlt}: ${p.role.toLowerCase()}`} loading="lazy" /></div>
+              <div className="member__photo"><img src={p.photo} alt={`${p.name}, ${p.role.toLowerCase()} da Baruque`} loading="lazy" decoding="async" /></div>
               <p className="member__role">{p.role}</p>
               <h3>{p.name}</h3>
-              <p>{p.text}</p>
+              {p.text && <p>{p.text}</p>}
             </motion.article>
           ))}
         </motion.div>
@@ -150,13 +140,7 @@ export function Ambient() {
     <section className="section section--base" id="ambiente">
       <div className="container">
         <SectionHeading first={copy.ambient.first} second={copy.ambient.second} />
-        <motion.div className="mosaic" variants={staggerContainer(motionTokens.stagger.tight)} initial="hidden" whileInView="visible" viewport={inViewOnce}>
-          {ambient.map((photo, i) => (
-            <PhotoTile key={photo.src} list={ambient} index={i} group="ambient" className={`mosaic__item mosaic__item--${i + 1}`}>
-              <span className="mosaic__caption">{photo.alt}</span>
-            </PhotoTile>
-          ))}
-        </motion.div>
+        <AmbientSlider />
       </div>
     </section>
   )

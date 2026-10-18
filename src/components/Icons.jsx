@@ -1,5 +1,8 @@
 const base = { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round', 'aria-hidden': true }
 
+export const IconPause = (p) => <svg {...base} {...p}><path d="M9 5v14M15 5v14" /></svg>
+export const IconPlay = (p) => <svg {...base} {...p}><path d="m8 5 11 7-11 7Z" /></svg>
+
 export const IconPin = (p) => <svg {...base} {...p}><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z" /><circle cx="12" cy="9.5" r="2.5" /></svg>
 export const IconClock = (p) => <svg {...base} {...p}><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
 export const IconPhone = (p) => <svg {...base} {...p}><path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 6 6L15 14l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" /></svg>
@@ -8,6 +11,7 @@ export const IconClose = (p) => <svg {...base} {...p}><path d="M6 6l12 12M18 6 6
 export const IconChevronLeft = (p) => <svg {...base} {...p}><path d="m15 5-7 7 7 7" /></svg>
 export const IconChevronRight = (p) => <svg {...base} {...p}><path d="m9 5 7 7-7 7" /></svg>
 export const IconChevronUp = (p) => <svg {...base} {...p}><path d="m5 15 7-7 7 7" /></svg>
+export const IconChevronDown = (p) => <svg {...base} {...p}><path d="m5 9 7 7 7-7" /></svg>
 export const IconExpand = (p) => <svg {...base} {...p}><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" /></svg>
 export const IconArrowRight = (p) => <svg {...base} {...p}><path d="M5 12h14M13 6l6 6-6 6" /></svg>
 export const IconCheck = (p) => <svg {...base} {...p}><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>

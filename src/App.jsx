@@ -12,7 +12,7 @@ import { AppModal } from './components/AppModal'
 function App() {
   const [lightbox, setLightbox] = useState(null)
   const [appOpen, setAppOpen] = useState(false)
-  const openLightbox = useCallback(({ list, index, group }) => setLightbox({ list, index, group, origin: index, dir: 1, navigated: false }), [])
+  const openLightbox = useCallback(({ list, index, group }) => setLightbox({ list, index, group, dir: 1, navigated: false }), [])
   const openApp = useCallback(() => setAppOpen(true), [])
   const closeApp = useCallback(() => setAppOpen(false), [])
 

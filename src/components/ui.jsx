@@ -60,7 +60,7 @@ export function SectionHeading({ first, second, align = 'left', label, tone, rul
   )
 }
 
-// Clickable photo. The frame shares a layoutId with the lightbox so the photo grows into place.
+// Keep tile geometry independent of the dialog, including while it closes.
 export function PhotoTile({ list, index, group, className = '', children, eager }) {
   const openLightbox = useLightbox()
   const photo = list[index]
@@ -72,11 +72,11 @@ export function PhotoTile({ list, index, group, className = '', children, eager 
       aria-label={`Ampliar foto: ${photo.alt}`}
       variants={fadeUp}
     >
-      <motion.span className="photo-tile__frame" layoutId={`${group}-${index}`} style={{ borderRadius: 10 }} transition={springs.layout}>
-        <motion.span className="photo-tile__fill" layout transition={springs.layout}>
+      <span className="photo-tile__frame" style={{ borderRadius: 10 }}>
+        <span className="photo-tile__fill">
           <img src={photo.src} alt="" loading={eager ? 'eager' : 'lazy'} decoding="async" />
-        </motion.span>
-      </motion.span>
+        </span>
+      </span>
       <span className="photo-tile__panel" aria-hidden="true" />
       <span className="photo-tile__zoom" aria-hidden="true"><IconExpand width={16} height={16} /></span>
       {children}

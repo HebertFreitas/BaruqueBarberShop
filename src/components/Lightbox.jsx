@@ -5,13 +5,14 @@ import { useDialog } from '../lib/overlays'
 import { IconChevronLeft, IconChevronRight, IconClose } from './Icons'
 
 const slide = {
+  open: { opacity: 0, x: 0, scale: motionTokens.scale.subtle },
   enter: (dir) => ({ opacity: 0, x: dir * motionTokens.distance.xl }),
-  center: { opacity: 1, x: 0 },
+  center: { opacity: 1, x: 0, scale: 1 },
   exit: (dir) => ({ opacity: 0, x: dir * -motionTokens.distance.xl }),
 }
 
-// state: { list, index, group, origin, dir }. The photo that was clicked (origin) keeps the
-// shared layoutId until the visitor navigates, so opening and closing morph from the tile.
+// Animate only the dialog photo. Shared layout projection between a scrolled card
+// and a fixed dialog can leave stale transforms on the card after closing.
 export function Lightbox({ state, setState }) {
   const ref = useRef(null)
   const close = useCallback(() => setState(null), [setState])
@@ -73,17 +74,15 @@ export function Lightbox({ state, setState }) {
 
 function Slide({ state, go }) {
   const photo = state.list[state.index]
-  const shared = !state.navigated && state.index === state.origin
   return (
     <motion.div
       className="lightbox__frame"
-      layoutId={shared ? `${state.group}-${state.index}` : undefined}
       style={{ '--ratio': photo.width / photo.height, borderRadius: 10 }}
       custom={state.dir}
-      variants={shared ? undefined : slide}
-      initial={shared ? false : 'enter'}
+      variants={slide}
+      initial={state.navigated ? 'enter' : 'open'}
       animate="center"
-      exit={shared ? { opacity: 0 } : 'exit'}
+      exit="exit"
       transition={springs.layout}
       drag={state.list.length > 1 ? 'x' : false}
       dragConstraints={{ left: 0, right: 0 }}
@@ -93,9 +92,9 @@ function Slide({ state, go }) {
         else if (info.offset.x > 80) go(-1)
       }}
     >
-      <motion.div className="lightbox__fill" layout transition={springs.layout}>
+      <div className="lightbox__fill">
         <img src={photo.src} alt={photo.alt} draggable="false" />
-      </motion.div>
+      </div>
     </motion.div>
   )
 }

@@ -1,8 +1,8 @@
 export const motionTokens = {
   distance: { sm: 18, md: 28, lg: 42, xl: 80 },
   scale: { subtle: 0.98, press: 0.97, pop: 1.03, zoom: 1.08 },
-  duration: { fast: 0.22, normal: 0.5, slow: 0.72, cinematic: 1.2, slide: 7 },
-  easing: { smooth: [0.22, 1, 0.36, 1], inOut: [0.65, 0, 0.35, 1] },
+  duration: { fast: 0.22, normal: 0.5, slow: 0.72, cinematic: 1.2, slide: 7, featureFirstSlide: 1.2, featureSlide: 4, ambientSlide: 4, ambientTransition: 1.4 },
+  easing: { smooth: [0.22, 1, 0.36, 1], inOut: [0.65, 0, 0.35, 1], ambient: [0.45, 0, 0.55, 1] },
   stagger: { tight: 0.06, base: 0.08, loose: 0.1 },
 }
 
