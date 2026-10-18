@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { AnimatePresence, animate, motion, useInView, useReducedMotion, useScroll, useTransform } from 'motion/react'
+import { animate, motion, useInView, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { appPerks, brand, contact, copy, hours, prices, process, reviews, stats, team } from '../config/site'
 import { AmbientSlider } from './AmbientSlider'
 import { FeatureStack } from './FeatureStack'
@@ -147,9 +147,9 @@ export function Ambient() {
 }
 
 export function Reviews() {
-  const [[index, dir], setState] = useState([0, 1])
-  const go = (d) => setState(([i]) => [(i + d + reviews.length) % reviews.length, d])
-  const review = reviews[index]
+  const [index, setIndex] = useState(0)
+  const reduce = useReducedMotion()
+  const go = (d) => setIndex((i) => (i + d + reviews.length) % reviews.length)
 
   return (
     <section className="section section--surface" aria-roledescription="carrossel" aria-label="Depoimentos">
@@ -158,32 +158,29 @@ export function Reviews() {
         <div className="reviews__stars" aria-label="Nota 5 de 5">
           {Array.from({ length: 5 }, (_, i) => <IconStar key={i} width={18} height={18} />)}
         </div>
-        <div className="reviews__stage">
-          <AnimatePresence mode="wait" custom={dir} initial={false}>
+        {/* Shared grid cell reserves the tallest review at every viewport/font size. */}
+        <div className="reviews__stage" aria-live="polite" aria-atomic="true">
+          {reviews.map((review, i) => (
             <motion.figure
-              key={index}
-              custom={dir}
-              variants={{
-                enter: (d) => ({ opacity: 0, x: d * motionTokens.distance.lg }),
-                center: { opacity: 1, x: 0 },
-                exit: (d) => ({ opacity: 0, x: d * -motionTokens.distance.lg }),
-              }}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: motionTokens.duration.normal, ease: motionTokens.easing.smooth }}
-              aria-live="polite"
+              key={review.name}
+              className="reviews__slide"
+              initial={false}
+              animate={{ opacity: i === index ? 1 : 0 }}
+              transition={{ duration: reduce ? 0 : motionTokens.duration.normal, ease: motionTokens.easing.smooth }}
+              aria-hidden={i !== index}
+              inert={i !== index}
+              style={{ pointerEvents: i === index ? 'auto' : 'none', zIndex: i === index ? 1 : 0 }}
             >
               <blockquote>“{review.text}”</blockquote>
               <figcaption><strong>{review.name}</strong>{review.when}, {copy.reviews.source}</figcaption>
             </motion.figure>
-          </AnimatePresence>
+          ))}
         </div>
         <div className="reviews__controls">
           <motion.button type="button" onClick={() => go(-1)} aria-label="Depoimento anterior" whileTap={{ scale: motionTokens.scale.press }}><IconChevronLeft width={18} height={18} /></motion.button>
           <div className="reviews__dots">
             {reviews.map((r, i) => (
-              <button key={r.name} type="button" className={i === index ? 'is-active' : ''} aria-label={`Depoimento ${i + 1} de ${reviews.length}`} aria-current={i === index} onClick={() => setState([i, i > index ? 1 : -1])}>
+              <button key={r.name} type="button" className={i === index ? 'is-active' : ''} aria-label={`Depoimento ${i + 1} de ${reviews.length}`} aria-current={i === index} onClick={() => setIndex(i)}>
                 {i === index && <motion.span layoutId="review-dot" transition={springs.snappy} />}
               </button>
             ))}

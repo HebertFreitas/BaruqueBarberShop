@@ -312,7 +312,8 @@
 .reviews { text-align: center; }
 .reviews .heading { margin-bottom: 32px; }
 .reviews__stars { display: flex; justify-content: center; gap: 4px; color: var(--accent-light); margin-bottom: 28px; }
-.reviews__stage { min-height: 280px; display: grid; align-items: center; }
+.reviews__stage { min-height: 280px; display: grid; align-items: center; isolation: isolate; }
+.reviews__slide { grid-area: 1 / 1; min-width: 0; }
 .reviews blockquote { font-family: var(--font-display); font-style: italic; font-size: clamp(19px, 2.2vw, 24px); line-height: 1.6; color: var(--text); max-width: 62ch; margin-inline: auto; }
 .reviews figcaption { margin-top: 28px; font-size: 14px; color: var(--muted); }
 .reviews figcaption strong { display: block; color: var(--text); margin-bottom: 2px; }

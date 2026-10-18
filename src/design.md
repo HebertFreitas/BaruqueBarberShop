@@ -46,3 +46,7 @@ Cores tiradas da própria casa: paredes grafite com boiserie, couro conhaque, lu
   setas, teclado (← → Esc), arrastar no celular.
 - Modais (app, lightbox): focus trap, Esc, scroll lock, `role="dialog"`, `aria-modal`.
 - `MotionConfig reducedMotion="user"` respeita `prefers-reduced-motion`.
+
+## Depoimentos
+
+- Depoimentos compartilham a mesma célula de grid, reservando a altura do maior texto conforme a largura e a fonte. Troca por opacidade sem desmontagem, deslocamento horizontal ou mudança de altura da seção; apenas o depoimento ativo fica disponível para leitores de tela. Movimento reduzido torna a troca imediata.
